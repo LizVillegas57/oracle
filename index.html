@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML/CSS/Javascript/ES6</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <main class="login">
+        <section class="login__wrapper">
+            <h1>Login</h1>
+            <form>
+                <article>
+                    <label for="">Username</label>
+                    <div class="login__row">
+                        <svg class="name" viewBox="0 0 20 20">
+                            <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+                        </svg>
+                        <input type="text" class="login__input name" id="userName" placeholder="Type your username"/>
+                    </div>
+                </article>
+                <article>
+                    <label for="">Password</label>
+                    <div class="login__row">
+                        <svg class="pass" viewBox="0 0 20 20">
+                            <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+                        </svg>
+                        <input type="password" class="login__input pass" id="password" placeholder="Type your password"/>
+                    </div>
+                </article>
+                <a href="#">Forgot password?</a>
+                <button type="button" class="login__submit" id="submit">Login</button>
+                <div class="login__sign">
+                    <p>Or Sign Up Using</p>
+                    <a href="#">SIGN UP</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script>
+        var userArray = [
+            {id: 1, un: "test", pw: "test"},
+        ];
+
+        document.getElementById('submit').onclick = function (){
+            authenticate()
+        };
+
+        function authenticate(){
+
+            var un = document.getElementById('userName').value;
+            var pw = document.getElementById('password').value;
+
+            if(userArray.length>0){
+                for(i=0; i<userArray.length; i++){
+                    if((un == userArray[i].un) && (pw == userArray[i].pw)){
+                        document.getElementById('userName').value = "";
+                        document.getElementById('password').value = "";
+                        window.location.href="cart.html";  
+                        break;
+                    }
+                    if(i==userArray.length-1 || userArray.length==0){
+                        console.log('working')
+                        troubleshoot(un, pw);
+                    }
+                }
+            }else{
+                alert("No match found.");
+                document.getElementById('userName').value = "";
+                document.getElementById('password').value = "";
+            }
+
+        };
+        function troubleshoot(un, pw){
+                for(j=0; j<userArray.length; j++){
+                    if(un == userArray[j].un){
+                        alert("Bad password");
+                        document.getElementById('password').value = "";
+                        break;
+                    };
+                    if(j==userArray.length-1 || userArray.length==0){
+                        alert("No match found.");
+                        document.getElementById('userName').value = "";
+                        document.getElementById('password').value = "";
+                    };
+                };
+        };
+
+    </script>
+</body>
+</html>
