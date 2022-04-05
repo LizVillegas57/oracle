@@ -4,10 +4,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML/CSS/Javascript/ES6</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-    <main class="cart">
+    <main class="cart" id="cart">
         <section class="cart__shopping">
             <div class="cart__header">
                 <h1>Shopping Cart</h1>
@@ -43,100 +43,6 @@
             </div>
         </aside>
     </main>
-    <script>
-        const cardTable = document.getElementById('cardTable');
-        const itemsLength = document.getElementById('itemsLength');
-
-        function incrementValue(e) {
-            console.log(e.closest('.tr').querySelector('#itemPrice'))
-            let value = parseInt(e.parentNode.querySelector('#quantityValue').value, 10);
-            let itemPrice = e.closest('.tr').querySelector('#itemPrice').innerText;
-            let totalAmount = e.closest('.tr').querySelector('#totalAmount');
-            value = isNaN(value) ? 0 : value;
-            if(value<10){
-                value++;
-                e.parentNode.querySelector('#quantityValue').value = value;
-                totalAmount.innerHTML = '$' + value * parseFloat(itemPrice);
-            }
-        }
-
-        function decrementValue(e){
-            let value = parseInt(e.parentNode.querySelector('#quantityValue').value, 10);
-            let itemPrice = e.closest('.tr').querySelector('#itemPrice').innerText;
-            let totalAmount = e.closest('.tr').querySelector('#totalAmount');
-            value = isNaN(value) ? 0 : value;
-            if(value>1){
-                value--;
-                e.parentNode.querySelector('#quantityValue').value = value;
-                totalAmount.innerHTML = '$' + value * parseFloat(itemPrice);
-            }
-
-        }
-
-        fetch("products.json")
-            .then((resp) => resp.json())
-            .then(function(data) {
-                let tab = 
-                        `<div class="tr th">
-                            <div class="td">Product Details</div>
-                            <div class="td">Quantity</div>
-                            <div class="td">Price</div>
-                            <div class="td">Total</div>
-                        </div>`;
-                    
-                    // Loop to access all rows 
-                    for (let item of data) {
-                        tab += `<div class="tr" id="${item.id}"> 
-                            <div class="td">
-                                <div class="cart__products">
-                                    <div class="cart__image">
-                                        <img src="${item.image}" alt="${item.title}" />
-                                    </div>
-                                    <div class="cart__content">
-                                        <span class="cart__title">${item.title}</span>
-                                        <span class="cart__category">${item.category}</span>
-                                        <a href="#">Remove</a>
-                                    </div>
-                                </div>
-                            </div>    
-                            <div class="td">   
-                                <div class="quantity__box">
-                                    <input type="button" onclick="decrementValue(this)" value="-" />
-                                    <input type="text" name="quantity" value="1" maxlength="2" max="10" size="1" id="quantityValue" />
-                                    <input type="button" onclick="incrementValue(this)" value="+" />
-                                </div>  
-                            </div>      
-                            <div class="td">
-                                <span>$<span id="itemPrice">${item.price}</span></span>
-                            </div>
-                            <div class="td">
-                                <span id="totalAmount">$${item.price}</span>
-                            </div>
-                        </div>`;
-                }
-
-                var size = Object.keys(data).length;
-                itemsLength.innerHTML = size + ' Items';
-                cardTable.innerHTML = tab;
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
-
-        function percentage(percent, total) {
-            return ((percent/ 100) * total).toFixed(2)
-        }
-        document.getElementById('apply').onclick = function (){
-            let promoCode = document.getElementById('promoCode').value;
-            let subtotalAmount = parseFloat(document.getElementById('subtotalAmount').innerText);
-            let totalCost = parseFloat(document.getElementById('totalCost').innerText);
-
-            if(promoCode === "FIRST10") {
-                let percentResult = percentage(10, subtotalAmount);
-                let sub = subtotalAmount - percentResult;
-                document.getElementById('totalCost').innerText = sub;
-            }
-        };
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>
