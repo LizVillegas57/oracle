@@ -86,7 +86,7 @@
 
         }
 
-        fetch("../data/products.json")
+        fetch("./data/products.json")
             .then((resp) => resp.json())
             .then(function(data) {
                 let tab = 
