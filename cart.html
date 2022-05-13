@@ -7,42 +7,51 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-    <main class="cart" id="cart">
-        <section class="cart__shopping">
-            <div class="cart__header">
+    <main class="layout hide" id="cart">
+        <section class="layout__shopping" >
+            <div class="layout__header">
                 <h1>Shopping Cart</h1>
                 <span id="itemsLength"></span>
             </div>
-            <div class="cart__table" id="cardTable"></div>
+            <div class="layout__table" id="cardTable"></div>
         </section>
-        <aside class="cart__aside">
-            <div class="card__header">
-                <h2>Order Summary</h2>
-            </div>
-            <div class="cart__total">
-                <span>Items 3</span>
-                <span>$<span id="subtotalAmount">457.98</span></span>
-            </div>
-            <div class="cart__forms">
-                <label for="delivery">Shipping</label>
-                <select name="delivery" id="delivery">
-                    <option value="volvo">Standard Delivery - $5.00</option>
-                </select>
-            </div>
-            <div class="cart__forms">
-                <label for="promoCode">Promo code</label>
-                <input type="text" id="promoCode" placeholder="Enter your code"/>
-            </div>
-            <button id="apply" class="apply">Apply</button>
-            <div class="cart__checkout">
-                <div class="cart__total">
-                    <span>Total Cost</span>
-                    <span>$<span id="totalCost">462.98</span></span>
+
+        <aside class="layout__aside">
+            <div id="orderSummary" class="hide">
+                <div class="layout__header">
+                    <h2>Order Summary</h2>
                 </div>
-                <button id="checkout" class="checkout">Checkout</button>
+                <div class="layout__total">
+                    <span id="itemsSelected"></span>
+                    <span id="subTotalAmount"></span>
+                </div>
+                <div class="layout__forms">
+                    <label for="delivery">Shipping</label>
+                    <select name="delivery" id="delivery" onchange="app.selectDelivery(this);">
+                        <option value="0">Select a delivery</option>
+                        <option value="5">Standard Delivery - $5.00</option>
+                    </select>
+                </div>
+                <div class="layout__forms">
+                    <label for="promoCode">Promo code</label>
+                    <input type="text" id="promoCode" placeholder="Enter your code" onblur="app.codePromo(this);"/>
+                    <span id="wrongCode"></span>
+                </div>
+                <button id="applyButton" class="apply" disabled tabindex="0" role="button" onclick="app.applyCode()">Apply</button>
+                <div class="layout__checkout">
+                    <div class="layout__total">
+                        <span>Total Cost</span>
+                        <span id="totalCost"></span>
+                    </div>
+                    <button id="checkoutButton" class="checkout" disabled tabindex="0" role="button" onclick="app.checkout()">Checkout</button>
+                </div>
+            </div>
+            <div id="noItemsSummary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M96 0C107.5 0 117.4 8.19 119.6 19.51L121.1 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H170.7L179.9 336H488C501.3 336 512 346.7 512 360C512 373.3 501.3 384 488 384H159.1C148.5 384 138.6 375.8 136.4 364.5L76.14 48H24C10.75 48 0 37.25 0 24C0 10.75 10.75 0 24 0H96zM128 464C128 437.5 149.5 416 176 416C202.5 416 224 437.5 224 464C224 490.5 202.5 512 176 512C149.5 512 128 490.5 128 464zM512 464C512 490.5 490.5 512 464 512C437.5 512 416 490.5 416 464C416 437.5 437.5 416 464 416C490.5 416 512 437.5 512 464z"/></svg>
+                <h3>You don't have any item selected</h3>
             </div>
         </aside>
     </main>
-    <script src="js/app.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 </html>
